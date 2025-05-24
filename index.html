@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LA CASA DEL STREAMING</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    let cart = [];
+    function addToCart(product) {
+      cart.push(product);
+      alert(product + " ha sido añadido al carrito.");
+      updateCartCounter();
+    }
+    function updateCartCounter() {
+      document.getElementById("cart-counter").textContent = cart.length;
+    }
+    function toggleCart() {
+      const modal = document.getElementById("cart-modal");
+      const list = document.getElementById("cart-items");
+      list.innerHTML = "";
+      if (cart.length === 0) {
+        list.innerHTML = "<li class='text-sm text-gray-500'>El carrito está vacío.</li>";
+      } else {
+        cart.forEach((item) => {
+          const li = document.createElement("li");
+          li.textContent = item;
+          li.className = "text-sm py-1 border-b";
+          list.appendChild(li);
+        });
+      }
+      modal.classList.toggle("hidden");
+    }
+  </script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <header class="bg-red-600 text-white py-6 shadow-md flex justify-between items-center px-6">
+    <h1 class="text-3xl font-bold">LA CASA DEL STREAMING</h1>
+    <div class="relative">
+      <button onclick="toggleCart()" class="bg-white text-red-600 px-4 py-2 rounded-full relative">
+        🛒 Carrito <span id="cart-counter" class="absolute -top-2 -right-2 bg-red-600 text-white rounded-full px-2 text-xs">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Netflix -->
+    <div class="bg-white rounded-2xl shadow-md p-4 flex flex-col items-center">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/7/75/Netflix_icon.svg" alt="Netflix" class="w-20 h-20 mb-4" />
+      <h2 class="text-xl font-semibold mb-2">Cuenta Netflix</h2>
+      <p class="text-center text-sm mb-4">Disfruta de miles de series y películas en HD.</p>
+      <button onclick="addToCart('Netflix')" class="bg-red-600 text-white px-4 py-2 rounded-xl hover:bg-red-700 transition">Agregar al carrito</button>
+    </div>
+
+    <!-- Amazon Prime Video -->
+    <div class="bg-white rounded-2xl shadow-md p-4 flex flex-col items-center">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Prime_Video.png" alt="Prime Video" class="w-20 h-20 mb-4" />
+      <h2 class="text-xl font-semibold mb-2">Cuenta Prime Video</h2>
+      <p class="text-center text-sm mb-4">Películas y series exclusivas de Amazon.</p>
+      <button onclick="addToCart('Prime Video')" class="bg-blue-600 text-white px-4 py-2 rounded-xl hover:bg-blue-700 transition">Agregar al carrito</button>
+    </div>
+
+    <!-- Spotify -->
+    <div class="bg-white rounded-2xl shadow-md p-4 flex flex-col items-center">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg" alt="Spotify" class="w-20 h-20 mb-4" />
+      <h2 class="text-xl font-semibold mb-2">Cuenta Spotify Premium</h2>
+      <p class="text-center text-sm mb-4">Escucha música sin anuncios y sin conexión.</p>
+      <button onclick="addToCart('Spotify')" class="bg-green-600 text-white px-4 py-2 rounded-xl hover:bg-green-700 transition">Agregar al carrito</button>
+    </div>
+  </main>
+
+  <!-- Carrito Modal -->
+  <div id="cart-modal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden z-50">
+    <div class="bg-white rounded-lg p-6 w-full max-w-md">
+      <h2 class="text-xl font-semibold mb-4">Tu Carrito</h2>
+      <ul id="cart-items" class="mb-4"></ul>
+      <div class="flex justify-between items-center">
+        <a href="https://www.yape.com.pe/" target="_blank" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">Pagar con Yape</a>
+        <button onclick="toggleCart()" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-gray-800 text-white text-center p-4 mt-6">
+    <p>&copy; 2025 LA CASA DEL STREAMING. Todos los derechos reservados.</p>
+    <p class="mt-2">Contáctanos por WhatsApp: <a href="https://wa.me/51940605399" class="underline text-green-400 hover:text-green-500">+51 940 605 399</a></p>
+  </footer>
+
+  <!-- Botón flotante de WhatsApp -->
+  <a href="https://wa.me/51940605399" class="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition duration-300 z-50" target="_blank" aria-label="WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21l1.7-6.1A8.5 8.5 0 1 1 21 11.5c0 2.4-1 4.6-2.6 6.1a8.5 8.5 0 0 1-13.7 3.4L3 21z" />
+    </svg>
+  </a>
+
+  <!-- Mensaje emergente de WhatsApp -->
+  <div id="whatsapp-popup" class="fixed bottom-24 right-6 bg-white border border-green-500 text-gray-800 p-4 rounded-xl shadow-lg max-w-xs z-50">
+    <p class="text-sm">¿Tienes dudas? Escríbenos por WhatsApp y te ayudamos.</p>
+    <button onclick="document.getElementById('whatsapp-popup').style.display='none'" class="text-xs text-green-600 underline mt-2">Cerrar</button>
+  </div>
+</body>
+</html>
